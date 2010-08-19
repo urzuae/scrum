@@ -3,20 +3,38 @@ require 'spec_helper'
 describe User do
   before(:each) do
     @valid_attributes = {
-      :email => "value for email",
-      :encrypted_password => "value for encrypted_password",
-      :confirmation_token => "value for confirmation_token",
-      :remember_token => "value for remember_token",
-      :admin => false,
-      :salt => "value for salt"
+      :name => "Henruz",
+      :email => "henruz@freshout.us",
+      :admin => false
     }
   end
 
   it "should create a new instance given valid attributes" do
     User.create!(@valid_attributes)
   end
-  
-  describe "POST 'create'" do
-    it "should require a name"
+  it "should require an email" do
+    user_email = User.new(@valid_attributes.merge(:email => ""))
+    user_email.should_not be_valid
   end
+  
+  it "should require a name" do
+    user_name = User.new(@valid_attributes.merge(:name => ""))
+    user_name.should_not be_valid
+  end
+  
+  it "should accept valid email addresses" do
+    emails = %w[it@freshout.us urzuae@gmail.com enrique_urzua@yahoo.com.mx]
+    emails.each do |email|
+      user_email = User.new(@valid_attributes.merge(:email => email))
+      user_email.should be_valid
+    end
+  end
+  it "should reject invalid addresses" do
+    emails = %w[trasvina@fresh,com urzua_at_gmail.co youyube@it.]
+    emails.each do |email|
+      user_email = User.new(@valid_attributes.merge(:email => email))
+      user_email.should_not be_valid
+    end
+  end
+  
 end

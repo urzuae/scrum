@@ -1,6 +1,8 @@
 <p><%= @project.name %></p>
 <div>Current Staff
+<ul>
 <%= render @project.users %>
+</ul>
 </div><br/>
 <div>Add Staff<br/>
 <% form_for @user_project do |f| %>

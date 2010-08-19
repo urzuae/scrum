@@ -1,3 +1,13 @@
 <%= @project.name %>
+<div> Tasks
+<% @project.tasks.each do |task| %>
+  <p><%= task.content %> by <%= task.user.name %></p>
+<% end %>
 
-<%= link_to "Edit #{@project.name}", edit_project_path(@project) %>
+</div>
+
+<div>Current Staff <%= link_to "Manage #{@project.name}'s staff", edit_project_path(@project) %>
+  <% @project.users.each do |user| %>
+    <div><%= user.name %></div>
+  <% end %>
+</div>

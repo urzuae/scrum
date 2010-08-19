@@ -1,10 +1,13 @@
 <% form_for @user do |f| %>
   <div>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+    <%= f.label :name %> <br/>
+    <%= f.text_field :name %> <%= error_message_on @user, :name, :prepend_text => "This field " %>
   </div>
-    <%= f.label :email %>
-    <%= f.text_field :email %>
+  <br/>
+  <div>
+    <%= f.label :email %> <br/>
+    <%= f.text_field :email %> <%= error_message_on @user, :email, :prepend_text => "Email " %>
+  </div>
   <div>
     <%= f.submit 'Register User' %>
   </div>

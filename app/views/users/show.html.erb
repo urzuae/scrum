@@ -1,2 +1,27 @@
 <%= @user.email %><br/>
-<%= @user.projects.first.name %>
+<div>
+  <% @user.projects.each do |project| %>
+
+    <p><%= project.name %></p>
+    
+    <div>
+        <% unless project.tasks.empty? %>
+          <% project.tasks.each do |task| %>
+            <p><%= task.content if task.user_id == @user.id %></p>
+          <% end %>
+        <% end %>
+    </div>
+
+    <% form_for [@user, @task] do |f| %>
+      <div class="fields">
+        <%= f.label :content %>
+        <%= f.text_field :content %>
+      </div>
+      <%= f.hidden_field :project_id, :value => project.id %>
+      <div class="actions">
+        <%= f.submit 'Add task' %>
+      </div>
+    <% end %>
+
+  <% end %>
+</div>
