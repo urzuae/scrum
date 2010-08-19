@@ -8,6 +8,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
+      #UserMailer.deliver_enrollment_notification
       redirect_to @user
     else
       render 'new'

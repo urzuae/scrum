@@ -1,3 +1,11 @@
-<%= @project.name %>
-
-<%= render @users %>
+<p><%= @project.name %></p>
+<div>Current Staff
+<%= render @project.users %>
+</div><br/>
+<div>Add Staff<br/>
+<% form_for @user_project do |f| %>
+  <%= f.collection_select(:user_id, @users, :id, :name, :prompt => true) %>
+  <%= f.hidden_field :project_id, :value => @project.id %>
+  <%= f.submit 'Add Staff' %>
+<% end %>
+</div>

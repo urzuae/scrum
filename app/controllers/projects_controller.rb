@@ -22,5 +22,6 @@ class ProjectsController < ApplicationController
   def edit
     @project = Project.find(params[:id])
     @users = User.all
+    @user_project = UserProject.new
   end
 end
