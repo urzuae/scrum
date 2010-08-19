@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  email: MyString
+  encrypted_password: MyString
+  confirmation_token: MyString
+  remember_token: MyString
+  admin: false
+  salt: MyString
+
+two:
+  email: MyString
+  encrypted_password: MyString
+  confirmation_token: MyString
+  remember_token: MyString
+  admin: false
+  salt: MyString

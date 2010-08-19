@@ -1,0 +1,13 @@
+<% form_for @project do |f| %>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %> <%= error_message_on @project, :name %>
+  </div>
+  <div>
+    <%= f.label :description %> <br/>
+    <%= f.text_area :description, :rows => 10 %> <%= error_message_on @project, :description %>
+  </div>
+  <div>
+    <%= f.submit 'Add Project' %>
+  </div>
+<% end %>
