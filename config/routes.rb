@@ -1,5 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :users, :has_many => [:tasks]
+  map.resources :task, :has_many => [:comments]
   map.resources :projects
   map.resources :user_projects
   # The priority is based upon order of creation: first created -> highest priority.

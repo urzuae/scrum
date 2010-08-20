@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  content: MyString
+  task_id: 1
+  author: MyString
+
+two:
+  content: MyString
+  task_id: 1
+  author: MyString

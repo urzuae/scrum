@@ -5,11 +5,30 @@
     <p><%= project.name %></p>
     
     <div>
+      <div class"columns on-<%= project.tasks.length%>">
         <% unless project.tasks.empty? %>
+        <div ="column">
           <% project.tasks.each do |task| %>
-            <p><%= task.content if task.user_id == @user.id %></p>
+            <% if task.user_id == @user.id %>
+              <%= task.content %>
+              <%# unless task.comments.empty?%>
+              <ul>
+              <% task.comments.each do |cmt| %>
+                <li><%= cmt.content %> by <%= cmt.author %></li>
+              <% end %>
+              </ul>
+              <%# end %>
+              <% form_for [task, @comment] do |g| %>
+                  <%= g.label :content, 'Comment' %>
+                  <%= g.text_field :content %> by 
+                  <%= g.text_field :author %>
+                  <%= g.submit 'Comment!' %>
+              <% end %>
+            <% end %>
           <% end %>
+        </div>
         <% end %>
+      </div>
     </div>
 
     <% form_for [@user, @task] do |f| %>
