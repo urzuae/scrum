@@ -1,0 +1,9 @@
+@user_project = UserProject.new(params[:user_project])
+@up_checker = UserProject.find(:first, :conditions => ["user_id = ? AND project_id = ?", params[:user_project][:user_id] , params[:user_project][:project_id]])
+if @up_checker.nil?
+  if @user_project.save
+    page.insert_html :bottom, "current_staff", :partial => @user_project
+  end
+else
+  page.alert "User already in project"
+end

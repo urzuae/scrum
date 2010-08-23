@@ -1,0 +1,43 @@
+body {
+  font-family: Verdana, Helvetica, Arial;
+  font-size: 14px;
+}
+
+.main_container {
+  margin: auto 40px;
+  padding: 20px 40px;
+  margin-top: 20px;
+  border: solid 1px;
+}
+
+#flash_notice, #flash_error {
+  padding: 5px 8px;
+  margin: 10px 0;
+}
+
+#flash_notice {
+  background-color: #CFC;
+  border: solid 1px #6C6;
+}
+
+#flash_error {
+  background-color: #FCC;
+  border: solid 1px #C66;
+}
+
+.menu_item {
+  padding: 1px;
+}
+
+div.field, div.actions {
+  margin-bottom: 10px;
+}
+
+.fieldWithErrors input {
+  border: solid 1px red;
+  background-color: #FF7;
+}
+
+.header .menu {
+  float: right;
+}

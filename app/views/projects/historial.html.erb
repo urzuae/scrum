@@ -1,0 +1,19 @@
+<head>
+  <%= javascript_include_tag 'js/projects' %>
+</head>
+  <div class="column">
+    <div class="unit header">
+      <h1><%= @project.name %></h1>
+      <%= render 'projects_header'%> |
+      <%= link_to 'Back', project_path(@project)%>
+    </div>
+    <div class="unit body">
+      <div class="columns on-2 same-height">
+          <ul>
+          <% @project.tasks.each do |task| %>
+            <%= render task %> <%= task.created_at.to_date %>
+          <% end %>
+          </ul>
+        
+    </div>
+  </div>
