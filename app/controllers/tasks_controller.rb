@@ -4,9 +4,10 @@ class TasksController < ApplicationController
     @user = User.find(params[:user_id])
     @task = @user.tasks.build(params[:task])
     if @task.save
-      redirect_to @user
-    else
-      redirec_to root_path
+      @user.scrum_made
+      respond_to do |format|
+        format.js
+      end
     end
   end
   

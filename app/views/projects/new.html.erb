@@ -1,13 +1,18 @@
-<% form_for @project do |f| %>
-  <div>
-    <%= f.label :name %>
-    <%= f.text_field :name %> <%= error_message_on @project, :name %>
-  </div>
-  <div>
-    <%= f.label :description %> <br/>
-    <%= f.text_area :description, :rows => 10 %> <%= error_message_on @project, :description %>
-  </div>
-  <div>
-    <%= f.submit 'Add Project' %>
-  </div>
-<% end %>
+<div class="unit header">
+  <h1>New project</h1>
+</div>
+<div class="unit body">
+  <% form_for @project do |f| %>
+    <div class="fields">
+      <%= f.label :name %>
+      <%= f.text_field :name %> <%= error_message_on @project, :name %>
+    </div>
+    <div class="fields">
+      <%= f.label :description %>
+      <%= f.text_area :description, :rows => 5 %> <%= error_message_on @project, :description %>
+    </div>
+    <div class="actions">
+      <%= f.submit 'Add Project' %>
+    </div>
+  <% end %>
+</div>

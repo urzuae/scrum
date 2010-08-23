@@ -1,46 +1,53 @@
-<%= @user.email %><br/>
-<div>
-  <% @user.projects.each do |project| %>
-
-    <p><%= project.name %></p>
-    
-    <div>
-      <div class"columns on-<%= project.tasks.length%>">
-        <% unless project.tasks.empty? %>
-        <div ="column">
-          <% project.tasks.each do |task| %>
-            <% if task.user_id == @user.id %>
-              <%= task.content %>
-              <%# unless task.comments.empty?%>
-              <ul>
-              <% task.comments.each do |cmt| %>
-                <li><%= cmt.content %> by <%= cmt.author %></li>
-              <% end %>
-              </ul>
-              <%# end %>
-              <% form_for [task, @comment] do |g| %>
-                  <%= g.label :content, 'Comment' %>
-                  <%= g.text_field :content %> by 
-                  <%= g.text_field :author %>
-                  <%= g.submit 'Comment!' %>
-              <% end %>
-            <% end %>
-          <% end %>
+<head><%= javascript_include_tag 'js/users' %></head>
+  <div class="column">
+    <div class="container">
+      <div class="unit header">
+        <div class="container">
+          <h1><%= @user.name %></h1>
         </div>
-        <% end %>
       </div>
+  
+      <div class="unit body">
+        <div class="columns on-3 same-height">
+        
+          <div class="column span-2 content">
+            <div class="columns on-2">
+            <% @user.projects.each do |project| %>
+              <div class="column content">
+              <div class="container full-height">
+                <%= project.name %>
+                <input type="button"class="task" name="<%= project.id%>" value="Add Task"/>
+                <div class="task_list" id="task_list_<%=project.id%>">
+                  <% unless project.tasks.empty? %>
+                    <% project.tasks.each do |task| %>
+                      <% if task.user_id == @user.id %>
+                        <%= render task if task.created_at.today? %>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                </div>
+                <% form_for [@user, @task], :html => { :id => "#{project.id}" } do |f| %>
+                  <%= f.hidden_field :project_id, :value => project.id %>
+                  <%= f.label :content, "Task" %>
+                  <%= f.text_field :content %>
+                  <%= f.submit 'Submit' %>
+                <% end %>
+              </div>
+              </div>
+            <% end %>
+            </div>
+          </div>
+        
+          <div class="column sidebar">
+            <div class="container full-height">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+            </div>
+          </div>
+      
+        </div>
+      </div>
+  
+      <div class="unit footer">
+      </div>  
     </div>
-
-    <% form_for [@user, @task] do |f| %>
-      <div class="fields">
-        <%= f.label :content %>
-        <%= f.text_field :content %>
-      </div>
-      <%= f.hidden_field :project_id, :value => project.id %>
-      <div class="actions">
-        <%= f.submit 'Add task' %>
-      </div>
-    <% end %>
-
-  <% end %>
-</div>
+  </div>

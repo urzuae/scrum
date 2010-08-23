@@ -47,8 +47,11 @@ ActiveRecord::Schema.define(:version => 20100819215519) do
     t.string   "encrypted_password"
     t.string   "confirmation_token"
     t.string   "remember_token"
-    t.boolean  "admin"
     t.string   "salt"
+    t.string   "password"
+    t.string   "state"
+    t.boolean  "admin",              :default => false
+    t.boolean  "scrum",              :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

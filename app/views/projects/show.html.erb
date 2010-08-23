@@ -1,13 +1,40 @@
-<%= @project.name %>
-<div> Tasks
-<% @project.tasks.each do |task| %>
-  <p><%= task.content %> by <%= task.user.name %></p>
-<% end %>
+<head>
+  <%= javascript_include_tag 'js/projects' %>
+</head>
 
-</div>
-
-<div>Current Staff <%= link_to "Manage #{@project.name}'s staff", edit_project_path(@project) %>
-  <% @project.users.each do |user| %>
-    <div><%= user.name %></div>
-  <% end %>
-</div>
+  <div class="column">
+    <div class="unit header">
+      <h1><%= @project.name %></h1>
+      <%= render 'projects_header'%> |
+      <%= link_to 'Historial', historial_project_path(@project)%>
+    </div>
+    
+    <div class="unit body">
+      <div class="columns on-2 same-height">
+        <div class="column content">
+          <h3>Tasks for today</h3>
+          <ul>
+          <% @project.tasks.each do |task| %>
+            <%= render task if task.created_at.today? %>
+          <% end %>
+          </ul>
+        </div>
+        
+        <div class="column content">
+          <div>Current Staff
+            <ul id="current_staff">
+              <%= render @project.user_projects %>
+            </ul>
+          </div>
+        </div>
+        <div class="column content">
+          <div>Add Staff<br/>
+          <% form_for @user_project do |f| %>
+            <%= f.collection_select(:user_id, @users, :id, :name, :prompt => true) %>
+            <%= f.hidden_field :project_id, :value => @project.id %>
+            <%= f.submit 'Add Staff' %>
+          <% end %>
+          </div>
+        </div>
+    </div>
+  </div>

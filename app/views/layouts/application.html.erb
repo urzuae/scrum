@@ -1,0 +1,20 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTDxhtml1-transitional.dtd">
+<html>
+  <head>
+    <%= javascript_include_tag :defaults %>
+    <%= javascript_include_tag 'js/elastic' %>
+    <%= javascript_include_tag 'js/jquery.ui' %>
+    <%= stylesheet_link_tag 'elastic' %>
+    <%= stylesheet_link_tag 'application' %>
+    <%= yield(:head) %>
+  </head>
+  </body>
+    <div class="principal_container">
+      <% flash.each do |name, msg| %>
+        <%= content_tag :div, msg, :id => "flash_#{name}" %>
+      <% end %>
+      <%= yield %>
+    </div>
+  </body>
+</html>
