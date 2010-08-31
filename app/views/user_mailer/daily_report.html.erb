@@ -1,0 +1,12 @@
+Hi Navid.
+
+This is the daily report.
+
+<% @projects.each do |project| %>
+  <h3><%= project.name%> </h3>
+  <% @project.tasks.each do |task| %>
+    <% if task.created_at.today? %>
+      <p><%= task.content %> by <%= task.user.name %></p>
+    <% end %>
+  <% end %>
+<% end %>

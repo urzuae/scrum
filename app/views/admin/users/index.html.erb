@@ -1,0 +1,52 @@
+<div id="container">
+    
+  <div id="header">
+    
+    <%= render 'shared/header' %>
+    
+    <div id="menu">
+      <ul>
+        <%= selected_li('Dashboard', root_path) %>
+        <%= selected_li('Project', admin_projects_path) %>
+        <%= selected_menu('User', admin_users_path, new_admin_user_path) %>
+      </ul>
+    </div>
+  </div>
+    
+  <div id="content">
+    <div id="leftBox">
+      
+      <div id="pageIntro">
+        <h2>Staff Overview</h2>
+        <p>These are the current users right now.</p>
+      </div>
+      
+      <div class="contentBox">
+          <div class="contentBoxTop">
+            <h3>Complete Staff</h3>
+          </div>
+          <div class="innerContent">
+            <table class="sTable">
+              <thead>
+                <tr>
+                  <th>User</th>
+                  <th>Email</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @users.each do |user| %>
+                  <tr class="oldRow">
+                    <td class="firstCol"><%= user.name %></td>
+                    <td class="secondCol"><%= user.email %></td>
+                  <tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+      </div>
+      
+    </div>
+  <br class="clearFix">
+  </div>
+</div>

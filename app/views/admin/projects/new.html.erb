@@ -1,0 +1,46 @@
+<div id="container">
+  
+  <div id="header">
+    <%= render 'shared/header' %>
+    
+    <div id="menu">
+      <ul>
+        <%= selected_li('Dashboard', root_path) %>
+        <%= selected_menu('Project', admin_projects_path, new_admin_project_path)%>
+        <%= selected_li('User', admin_users_path) %>
+      </ul>
+    </div>
+  </div>
+  
+  <div id="content">
+    <div id="leftBox">
+      
+      <div id="pageIntro">
+        <h2>New Project</h2>
+        <p>Add a new project.</p>
+      </div>
+      
+      <div class="contentBox" id="forms">
+          <div class="contentBoxTop">
+            <h3>Current Projects</h3>
+          </div>
+          <div class="innerContent" style="overflow:hidden;">
+            <% form_for @project, :url => admin_projects_path do |f| %>
+              Name: <br/>
+              <%= f.text_field :name, :class => 'smallInput' %>
+              <br/><%= error_message_on @project, :name, :prepend_text => "*This field " %><br/>
+              Description: <br/>
+              <%= f.text_area :description, :class => 'areaInput' %>
+              <br/><%= error_message_on @project, :description, :prepend_text => "*This field " %><br/>
+
+                <%= f.submit " ", :class => 'submitInput' %>
+
+          <% end %>
+          </div>
+      </div>
+      
+    </div>
+  <br class="clearFix">
+  </div>
+  
+</div>

@@ -1,0 +1,100 @@
+<head>
+  <%= javascript_include_tag 'js/users' %>
+  <%= stylesheet_link_tag 'jquery.ui.datepicker.css' %>
+</head>
+    
+  <div id="header">
+    
+    <%= render 'shared/header' %>
+    
+    <%= render 'shared/menu' %>
+  </div>  
+  
+  <div id="content">
+    <div id="leftBox">
+      
+      <div id="pageIntro">
+        <h2>Dashboard</h2>
+        <p>Daily tasks for my projects.</p>
+      </div>
+      
+      <% if @projects.empty? %>
+        <div class="contentBox" id="forms">
+          <div class="contentBoxTop">
+            <h3>No project assigned yet</h3>
+          </div>
+          <div class="innerContent"></div>
+        </div>
+      <% else %>
+        <% @projects.each do |project| %>
+          <div class="contentBox" id="forms">
+            <div class="contentBoxTop">
+              <h3><%= project.name %> <small> Tasks for <%= @day.today? ? "Today" : @day %></small></h3>
+              <p>
+                <%= link_to '<< |', root_path( :params => {:day => @day - 1}  )%>
+                <input type="text" id="datepicker" value="<%=@day%>"/>
+                <%= link_to '| >>', root_path( :params => {:day => @day + 1}) unless @day.today? %>
+              </p>
+            </div>
+            <div class="innerContent" style="overflow:hidden;">
+              <div class="task_list" id="task_list_<%=project.id%>">
+                <% project.find_tasks_by_day(@day).each do |task| %>
+                  <h4><%= task.content %></h4> by <%= task.user.name %><br/><br/>
+                  <div class="comments">
+                    <% task.comments.each do |cmt| %>
+                      <p>*<%= cmt.content %> by <%= cmt.user.name %></p>
+                    <% end %>
+                  </div>
+                  <input type="button"class="comment" name="<%= task.id%>" value="Add comment"/>
+                  <div class="forms" id="task_<%=task.id%>">
+                    <% form_for @comment do |g| %>
+                      <br/>Comment:
+                        <%= g.text_field :content, :size => 70, :class => 'mediumInput' %>
+                        <%= g.hidden_field :user_id, :value => @user.id %>
+                        <%= g.hidden_field :task_id, :value => task.id %><br/><br/>
+                        <%= g.submit " ", :class => "submitInput" %>
+                    <% end %>
+                  </div>
+                  <br/><br/>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+        
+      <div class="contentBox" id="forms">
+        <div class="contentBoxTop">
+          <h3>General</h3>
+          <p>
+            <%= link_to '<< |', root_path( :params => {:day => @day - 1}  )%>
+            <input type="text" id="datepicker" value="<%=@day%>"/>
+            <%= link_to '| >>', root_path( :params => {:day => @day + 1}) unless @day.today? %>
+          </p>
+        </div>
+        <div class="innerContent">
+          <% Task.find_by_day(@day).each do |task| %>
+            <h4><%= task.content %></h4> by <%= task.user.name %><br/><br/>
+            <div class="comments">
+              <% task.comments.each do |cmt| %>
+                <p>*<%= cmt.content %> by <%= cmt.user.name %></p>
+              <% end %>
+            </div>
+            <input type="button"class="comment" name="<%= task.id%>" value="Add comment"/>
+            <div class="forms" id="task_<%=task.id%>">
+              <% form_for @comment do |g| %>
+                <br/>Comment:
+                  <%= g.text_field :content, :size => 70, :class => 'mediumInput' %>
+                  <%= g.hidden_field :user_id, :value => @user.id %>
+                  <%= g.hidden_field :task_id, :value => task.id %><br/><br/>
+                  <%= g.submit " ", :class => "submitInput" %>
+              <% end %>
+            </div>
+            <br/><br/>
+          <% end %>
+        </div>
+      </div>
+      
+    </div>
+  <br class="clearFix">
+  </div>

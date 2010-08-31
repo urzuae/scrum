@@ -1,0 +1,55 @@
+<div id="container">
+    
+  <div id="header">
+    
+    <%= render 'shared/header' %>
+    
+    <div id="menu">
+      <ul>
+        <%= selected_li('Dashboard', root_path) %>
+        <%= selected_menu('Project', admin_projects_path, new_admin_project_path)%>
+        <%= selected_li('User', admin_users_path) %>
+      </ul>
+    </div>
+  </div>
+    
+  <div id="content">
+    <div id="leftBox">
+      
+      <div id="pageIntro">
+        <h2>Projects Overview</h2>
+        <p>These are the current projects right now.</p>
+      </div>
+      
+      <div class="contentBox">
+          <div class="contentBoxTop">
+            <h3>Current Projects</h3>
+          </div>
+          <div class="innerContent">
+            <table class="sTable">
+              <thead>
+                <tr>
+                  <th>Project</th>
+                  <th>Description</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @projects.each do |project| %>
+                  <tr class="oldRow">
+                    <td class="firstCol"><%= link_to project.name, admin_project_path(project) %></td>
+                    <td class="secondCol"><%= project.description %></td>
+                    <td class="editItem">
+                      <li class="iconEdit"><%= link_to 'Manage Project', edit_admin_project_path(project) %></li>
+                    </td>
+                  <tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+      </div>
+      
+    </div>
+  <br class="clearFix">
+  </div>
+</div>

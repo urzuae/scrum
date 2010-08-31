@@ -1,0 +1,50 @@
+<div id="container">
+    
+  <div id="header">
+    <%= render 'shared/header' %>
+    
+    <div id="menu">
+      <ul>
+        <li><%= link_to 'Dashboard', user_path(@user) %>
+        <% if @user.admin %>
+        <li><%= link_to 'Admin', admin_root_path %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+    
+  <div id="content">
+    <div id="leftBox">
+      
+      <div id="pageIntro">
+        <h2>Edit Profile</h2>
+        <%= link_to 'Back to Profile', user_path(@user) %>
+        <p>To apply changes type your current/new password</p>
+      </div>
+      
+      <div class="contentBox" id="forms">
+          <div class="contentBoxTop">
+            <h3>Change Profile</h3>
+          </div>
+          <div class="innerContent" style="overflow:hidden;">
+            <% form_for @user do |f| %>
+              Name: <br/>
+                <%= f.text_field :name, :class => 'smallInput' %>
+                <br/><%= error_message_on @user, :name, :prepend_text => "*This field " %><br/>
+              Email: <br/>
+                <%= f.text_field :email, :class => 'smallInput' %>
+                <br/><%= error_message_on @user, :email, :prepend_text => "*Email " %><br/>
+              Password: <br/>
+                <%= f.password_field :password, :class => 'smallInput' %>
+                <br/><%= error_message_on @user, :password, :prepend_text => "*Password " %><br/>
+              Password Confirmation: <br/>
+                <%= f.password_field :password_confirmation, :class => 'smallInput' %><br/><br/>
+                <%= f.submit " ", :class => "submitInput" %>
+          <% end %>
+          </div>
+      </div>
+      
+    </div>
+  <br class="clearFix">
+  </div>
+</div>

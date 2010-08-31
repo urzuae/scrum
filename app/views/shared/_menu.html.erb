@@ -1,0 +1,16 @@
+  <div id="menu">
+    <ul>
+      <li class="selected">
+        <span class="selected-arrow"></span>
+        <%= link_to 'Dashboard', root_path %>
+        <ul>
+          <%= selected_li("Dashboard", root_path) %>
+          <%= selected_li("Scrum in", scrum_user_path(@user))%>
+        </ul>
+      </li>
+      <% if current_user.admin %>
+      <li><%= link_to 'Admin', admin_root_path %></li>
+      <% end %>
+    </ul>
+  </div>
+

@@ -1,0 +1,74 @@
+<head>
+  <%= javascript_include_tag 'js/projects' %>
+</head>
+
+<div id="container">
+  
+  <div id="header">
+    <%= render 'shared/header' %>
+    
+    <div id="menu">
+      <ul>
+        <%= selected_li('Dashboard', root_path) %>
+        <%= selected_menu('Project', admin_projects_path, new_admin_project_path)%>
+        <%= selected_li('User', admin_users_path) %>
+      </ul>
+    </div>
+  </div>
+  
+  <div id="content">
+    <div id="leftBox">
+      
+      <div id="pageIntro">
+        <h2><%= @project.name %></h2>
+        <%= link_to 'Back to Project', admin_project_path%>
+        <p><%= @project.description %></p>
+      </div>
+      
+
+      <div class="contentBox" id="forms">
+        <div class="contentBoxTop">
+          <h3>Staff</h3>
+          <ul class="switcherTabs">
+            <li class="selected"><a href="#box-1">Current Staff</a></li>
+            <li class><a href="#box-2">Add Member</a></li>
+          </ul>
+        </div>
+        <div class="innerContent" id="box-1" style="display:block;">
+          <table class="sTable">
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Email</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @project.user_projects.each do |up| %>
+                <tr class="oldRow">
+                  <td class="firstCol"><%= up.user.name %></td>
+                  <td class="secondCol"><%= up.user.email %></td>
+                  <td class="editItem">
+                    <li class="iconDel"><%= link_to "Remove", up, :method => :delete, :confirm => 'Are you sure?' %></li>
+                  </td>
+                <tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        
+        <div class="innerContent" id="box-2" style="display:none;">
+          <% form_for @user_project do |f| %>
+            <p>Member
+              <%= f.collection_select(:user_id, @users, :id, :name, :prompt => true) %>
+              <%= f.hidden_field :project_id, :value => @project.id %>
+              <%= f.submit " ", :class => "submitInput" %>
+            </p>
+          <% end %>
+          
+        </div>
+      </div>
+    </div>
+    <br class="clearFix">
+  </div>
+</div>

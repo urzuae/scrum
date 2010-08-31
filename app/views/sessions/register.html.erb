@@ -1,0 +1,59 @@
+<div id="container">
+    
+  <div id="header">
+    <div id="logo">
+      <h1>Users</h1>
+    </div>
+    
+    <div id="menu">
+      <ul>
+        <li class="selected">
+          <span class="selected-arrow"></span>
+          <%= link_to 'Registration' %>
+        </li>
+      </ul>
+    </div>
+  </div>
+    
+  <div id="content">
+    <div id="leftBox">
+      
+      <div id="pageIntro">
+        <h2>Account Registered</h2>
+      </div>
+      <% if @display == false%>
+      <div class="errorBox">
+        <div class="errorBoxTop"></div>
+        <div class="msgBoxContent errorIcon">
+          <p>Error. Account not validated.</p>
+          <p>Your account has not been validated, check your email.</p>
+        </div>
+      </div>
+      <% elsif @display == true %>
+      <div class="successBox">
+        <div class="successBoxTop"></div>
+        <div class="msgBoxContent successIcon">
+          <p>Welcome to SCRUM. Your account was succesfully confirmed.</p>
+          <p>Please sign in so you can access your account</p>
+        </div>
+      </div>
+      <% end %>
+      <div class="contentBox" id="forms">
+          <div class="contentBoxTop">
+            <h3>Registration</h3>
+          </div>
+          <div class="innerContent" style="overflow:hidden;">
+            <% form_for :session, :url => sessions_path do |f| %>
+              Email: <br/>
+                <%= f.text_field :email, :class => 'smallInput' %><br/><br/>
+              Password:<br/>
+                <%= f.password_field :password, :class => 'smallInput' %><br/><br/>
+                <%= f.submit " ", :class => 'submitInput  ' %>
+            <% end %>
+          </div>
+      </div>
+      
+    </div>
+  <br class="clearFix">
+  </div>
+</div>

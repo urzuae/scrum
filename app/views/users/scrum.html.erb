@@ -1,0 +1,105 @@
+<head><%= javascript_include_tag 'js/users' %></head>
+
+<div id="container">
+    
+  <div id="header">
+    <%= render 'shared/header' %>
+    
+    <div id="menu">
+      <ul>
+        <li class="selected">
+          <span class="selected-arrow"></span>
+          <%= link_to 'Dashboard', root_path %>
+          <ul>
+            <li><%= link_to 'Dashboard', root_path %></li>
+            <li class="selected"><%= link_to 'Scrum In', scrum_user_path(current_user) %></li>
+          </ul>
+        </li>
+        <% if current_user.admin %>
+        <li><%= link_to 'Admin', admin_root_path %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+    
+  <div id="content">
+    <div id="leftBox">
+      
+      <div id="pageIntro">
+        <h2>Scrum</h2>
+        <p>Set your today's tasks.</p>
+      </div>
+      
+      <% if @user.projects.empty? %>
+      <div class="contentBox" id="forms">
+        <div class="contentBoxTop">
+          <h3>No project assigned yet</h3>
+        </div>
+        <div class="innerContent"></div>
+      </div>
+      <% else %>
+        <% @user.projects.each do |project| %>
+          <div class="contentBox" id="forms">
+            <div class="contentBoxTop">
+              <h3><%= project.name %></h3>
+            </div>
+          
+            <div class="innerContent" style="overflow:hidden;">
+              <div class="previous">
+                <h5>Previous tasks</h5>
+                <% project.find_previous_five.each do |task| %>
+                  <p><%= task.content %> on <%= task.created_at.to_date%></p>
+                <% end %>
+              </div><br/>
+              <input type="button"class="task" name="<%=project.id%>" value="Add Task"/>
+              <br/>
+              <div class="task_list" id="task_list_<%=project.id%>">
+                <% project.find_today_tasks.each do |task| %>
+                  <% if task.user_id == @user.id %>
+                    <h4><%= task.content %> by <%= task.user.name %></h4>
+                  <% end %>
+                <% end %>
+              </div>
+              <div id="form_<%=project.id%>" class="task_forms">
+                <% form_for @task do |f| %>
+                  <br/>Task:<br/>
+                    <%= f.hidden_field :project_id, :value => project.id %>
+                    <%= f.hidden_field :user_id, :value => @user.id %>
+                    <%= f.text_field :content, :class => 'smallInput' %><br/><br/>
+                    <%= f.submit " ", :class => 'submitInput' %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+        
+      <div class="contentBox">
+        <div class="contentBoxTop">
+          <h3>General Tasks</h3>
+        </div>
+        <div class="innerContent">
+          <div class="previous">
+            <h5>Previous tasks</h5>
+            <% Task.find_previous.each do |task| %>
+              <p><%= task.content %> on <%= task.created_at.to_date%></p>
+            <% end %>
+          </div><br/>
+          <input type="button"class="task" name="0" value="Add Task"/>          
+          <div id="form_0" class="task_forms">
+            <% form_for @task do |f| %>
+              <br/>Task:<br/>
+                <%= f.hidden_field :project_id, :value => 0 %>
+                <%= f.hidden_field :user_id, :value => @user.id %>
+                <%= f.text_field :content, :class => 'smallInput' %><br/><br/>
+                <%= f.submit " ", :class => 'submitInput' %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+        
+    </div>
+  <br class="clearFix">
+  </div>
+</div>
+

@@ -1,0 +1,12 @@
+<div id="logo">
+</div>
+
+<div id="userBox">
+  <p>
+    <img src="<%=root_url%>stylesheets/images/icon_user.gif" width="16" height="19" alt=" ">
+    Hello, <%= link_to current_user.name, root_path %>.|
+    <%= link_to 'Profile', user_path(current_user) %> |
+    <%= link_to 'Settings', edit_user_path(current_user) %> |
+    <%= link_to 'Sign out', signout_path %>
+  </p>
+</div>
