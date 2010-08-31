@@ -1,1 +1,0 @@
-page.replace "li_#{params[:id]}", ""

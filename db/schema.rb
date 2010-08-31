@@ -14,7 +14,7 @@ ActiveRecord::Schema.define(:version => 20100819215519) do
   create_table "comments", :force => true do |t|
     t.string   "content"
     t.integer  "task_id"
-    t.string   "author"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -48,8 +48,8 @@ ActiveRecord::Schema.define(:version => 20100819215519) do
     t.string   "confirmation_token"
     t.string   "remember_token"
     t.string   "salt"
-    t.string   "password"
     t.string   "state"
+    t.boolean  "enrolled",           :default => false
     t.boolean  "admin",              :default => false
     t.boolean  "scrum",              :default => false
     t.datetime "created_at"

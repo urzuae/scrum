@@ -8,5 +8,12 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
 
   # Scrub sensitive parameters from your log
-  # filter_parameter_logging :password
+  filter_parameter_logging :password
+  
+  def admin_user
+    unless current_user.admin
+      redirect_to root_path
+    end
+  end
+  
 end

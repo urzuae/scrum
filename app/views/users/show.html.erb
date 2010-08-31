@@ -1,53 +1,46 @@
 <head><%= javascript_include_tag 'js/users' %></head>
-  <div class="column">
-    <div class="container">
-      <div class="unit header">
-        <div class="container">
-          <h1><%= @user.name %></h1>
-        </div>
-      </div>
-  
-      <div class="unit body">
-        <div class="columns on-3 same-height">
-        
-          <div class="column span-2 content">
-            <div class="columns on-2">
-            <% @user.projects.each do |project| %>
-              <div class="column content">
-              <div class="container full-height">
-                <%= project.name %>
-                <input type="button"class="task" name="<%= project.id%>" value="Add Task"/>
-                <div class="task_list" id="task_list_<%=project.id%>">
-                  <% unless project.tasks.empty? %>
-                    <% project.tasks.each do |task| %>
-                      <% if task.user_id == @user.id %>
-                        <%= render task if task.created_at.today? %>
-                      <% end %>
-                    <% end %>
-                  <% end %>
-                </div>
-                <% form_for [@user, @task], :html => { :id => "#{project.id}" } do |f| %>
-                  <%= f.hidden_field :project_id, :value => project.id %>
-                  <%= f.label :content, "Task" %>
-                  <%= f.text_field :content %>
-                  <%= f.submit 'Submit' %>
-                <% end %>
-              </div>
-              </div>
-            <% end %>
-            </div>
-          </div>
-        
-          <div class="column sidebar">
-            <div class="container full-height">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-            </div>
-          </div>
-      
-        </div>
-      </div>
-  
-      <div class="unit footer">
-      </div>  
+
+<div id="container">
+    
+  <div id="header">
+    <%= render 'shared/header' %>
+    
+    <div id="menu">
+      <ul>
+        <li><%= link_to 'Dashboard', root_path %></li>
+        <% if current_user.admin %>
+        <li><%= link_to 'Admin', admin_users_path%></li>
+        <% end %>
+      </ul>
     </div>
   </div>
+    
+  <div id="content">
+    <div id="leftBox">
+      
+      <div id="pageIntro">
+        <h2><%= @user.name %></h2>
+        <%= link_to 'Edit', edit_user_path(@user) %>
+        <p>My profile.</p>
+      </div>
+      
+      <div class="contentBox" id="forms">
+        <div class="contentBoxTop">
+          <h3>Profile</h3>
+        </div>
+        <div class="innerContent" style="overflow:hidden;">
+          <h4>Name:</h4><br/>
+          <p><%= @user.name %></p><br/>
+          <h4>Email:</h4><br/>
+          <p><%= @user.email %></p><br/>
+          <h4>Projects:</h4><br/>
+          <p><% @user.projects.each do |proj| %>
+              - <%= proj.name %> -
+              <% end %></p><br/>
+        </div>
+      </div>
+      
+    </div>
+  <br class="clearFix">
+  </div>
+</div>

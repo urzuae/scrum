@@ -1,14 +1,24 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :users, :has_many => [:tasks]
-  map.resources :task, :has_many => [:comments]
-  map.resources :projects, :member => [:historial]
-  map.resources :user_projects
+  
+  map.namespace :admin do |admin|
+    admin.resources :users, :only => [:index, :new, :create, :destroy]
+    admin.resources :projects
+    admin.root :controller => 'projects'
+  end
+  
+  map.resources :users, :only => [:show, :edit, :update], :member => [:scrum]
   map.resources :sessions, :only => [:new, :create, :destroy]
   
-  map.register '/register/:confirmation_token', :controller => 'users', :action => 'register'
+  map.resources :tasks, :only => [:create]
+  map.resources :comments, :only => [:create]
+  map.resources :user_projects, :only => [:create, :destroy]
+  
+  #TODO: map.scrum_in =>  new_task
+  map.register '/register/:confirmation_token', :controller => 'sessions', :action => 'register'
   map.signin '/signin', :controller => 'sessions', :action => 'new'
   map.signout '/signout', :controller => 'sessions', :action => 'destroy'
-  map.root :controller => 'sessions', :action => 'new'
+
+  map.root :controller => 'dashboard'
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:

@@ -1,13 +1,16 @@
+body, form, p {
+  margin: 0;
+  padding: 0;
+}
+
+ul, ol {
+  list-style: none;
+  }
+
 body {
   font-family: Verdana, Helvetica, Arial;
   font-size: 14px;
-}
-
-.principal_container {
-  margin: auto 40px;
-  padding: 20px 40px;
-  margin-top: 20px;
-  border: solid 1px;
+  background: #383838;
 }
 
 #flash_notice, #flash_error {
@@ -25,7 +28,117 @@ body {
   border: solid 1px #C66;
 }
 
-.fieldWithErrors input {
-  border: solid 1px red;
-  background-color: #FF7;
+.main_container {
+  width: 80%;
+  margin: auto 40px;
+  padding: 20px 40px 30px;
+  margin-top: 20px;
+}
+
+/*  Sign in Page */
+
+#container_signin {
+  width: 980px;
+  background: url(images/bg_login.jpg) no-repeat top center;
+  margin: 0 auto;
+  padding-top: 80px;
+  height: 335px;
+}
+
+#signin_form {
+  background:url(images/bg_loginBox.jpg) no-repeat;
+  width:421px;
+  height:160px;
+  margin:0 auto 0 auto;
+  padding:10px
+}
+
+#signin_form h2{
+  color: #fff;
+  display: block;
+  width: 180px;
+  float: left;
+  font-size: 14pt;
+}
+
+#login_container {
+  clear: both;
+  width: 100%;
+  padding-top: 25px;
+  color: #666;
+  padding-left: 7px;
+}
+
+input.signinInput {
+  background:url(images/bg_s_input.gif) no-repeat;
+  width:168px;
+  height:23px;
+  padding:4px 6px 0px 6px;
+  border:none;
+  font-size:0.9em;
+  color:#666;
+}
+
+input.submitInput {
+  background: url(images/bt_submit.gif) no-repeat;
+  width: 82px;
+  height: 32px;
+  border: none;
+}
+
+p#email, p#password {
+  float: left;
+  margin-right: 30px;
+  margin-bottom: 20px;
+}
+
+h1, h2 {
+  margin: 0;
+  padding: 0;
+}
+
+
+
+input#datepicker {
+  width: 80px;
+  background: none;
+  border: none;
+  color: #f2f2f2;
+  font-size: 1.1em;
+  margin-top: 15px;
+}
+input#datepicker:hover {
+  color: #b37431;
+}
+
+.contentBoxTop a {
+  text-decoration: none;
+  color: #f2f2f2;
+  font-size: 1.4em;
+}
+
+.contentBoxTop a:hover {
+  color: #b37431;
+}
+
+.contentBoxTop p {
+  float:right;
+  margin-right: 50px;
+}
+
+.previous {
+  padding: 2px;
+  font-size: 0.8em;
+}
+
+.previous p {
+  margin-left: 10px;
+}
+
+.task_list {
+  padding-top: 10px;
+}
+
+.formError {
+  color: #993333;
 }

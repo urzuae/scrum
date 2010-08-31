@@ -1,21 +1,27 @@
 $(function() {
   
-  $(".new_task").css("display","none");
+  $(".forms").hide();
   
   $(".task").click(function() {
-    var id="#"+ $(this).attr("name");
-    $(id).toggle("slow");
+    var id="#form_" + $(this).attr("name");
+    $(id).show();
   });
   
-  $(".new_task").live('submit', function() {
-    var data = $(this).serialize();
-    var url = $(this).attr('action');
-    $.ajax({
-      data: data,
-      url: url,
-      type: 'post'
-    });
-    return false;
+  $(".task_forms").hide();
+  
+  $(".comment").click(function() {
+    var id="#task_"+ $(this).attr("name");
+    $(id).css('display', 'block');
+    Elastic.refresh();
   });
+  
+  $('#datepicker').datepicker({
+    maxDate: '0',
+    dateFormat: 'yy-mm-dd',
+    onSelect: function(dateText) {
+      location.href = "?day=" + dateText;
+    }
+  });
+  
   
 });

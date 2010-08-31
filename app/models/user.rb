@@ -17,6 +17,10 @@ class User < ActiveRecord::Base
     transitions :to => :activated, :from => [:registered]
   end
   
+  attr_accessor :password
+  
+  validates_confirmation_of :password
+  validates_presence_of :password
   validates_presence_of :email
   validates_uniqueness_of :email
   validates_format_of :email, :with => /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -27,6 +31,7 @@ class User < ActiveRecord::Base
   has_many :projects, :through => :user_projects
   has_many :user_projects
   has_many :tasks
+  has_many :comments
   
   def has_password?(submitted_password)
     encrypted_password == encrypt(submitted_password)
@@ -55,25 +60,51 @@ class User < ActiveRecord::Base
   
   def confirmation
     self.confirm!
-    self.confirmation_token = nil
-    self.password = nil
+    self.update_attribute(:confirmation_token, nil)
   end
   
   def scrum_made
-    self.scrum = true
-    save_without_validation
+    self.update_attribute(:scrum, true)
+  end
+  
+  def self.reset_scrum
+    User.update_all(:scrum, false)
+  end
+  
+  def self.generate_password
+    User.make_password
+  end
+
+  def self.make_password
+    rand(100).to_s + ('a'..'z').to_a.shuffle[0..2].join + rand(100).to_s + ('a'..'z').to_a.shuffle[0..2].join
+  end
+  
+  def self.scrum_reminder
+    users = User.all
+    users.each do |user|
+      if user.enrolled && !user.scrum
+        UserMailer.deliver_scrum_reminder(user.id)
+      end
+    end
+  end
+  
+  def enroll
+    self.update_attribute(:enrolled, true)
+  end
+  
+  def not_enroll
+    if self.user_projects.empty?
+      self.update_attribute(:enrolled, false)
+    end
   end
   
   private
   
-  def make_password
-    rand(100).to_s + ('a'..'z').to_a.shuffle[0..2].join + rand(100).to_s + ('a'..'z').to_a.shuffle[0..2].join
-  end
-  
   def encrypt_password
-    self.password = make_password
-    self.salt = make_salt(password)
-    self.encrypted_password = encrypt(password)
+    unless password.nil? || password.blank?
+      self.salt = make_salt(password)
+      self.encrypted_password = encrypt(password)
+    end
   end
   
   def encrypt(string)

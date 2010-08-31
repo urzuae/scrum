@@ -5,7 +5,8 @@ describe User do
     @valid_attributes = {
       :name => "Henruz",
       :email => "henruz@freshout.us",
-      :admin => false
+      :password => "123456",
+      :password_confirmation => "123456"
     }
   end
 

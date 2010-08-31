@@ -3,7 +3,7 @@ module SessionsHelper
   def sign_in(user)
     user.remember_me!
     cookies[:remember_token] = { :value => user.remember_token, :expires => 20.years.from_now.utc }
-    self.current_user = user
+    @current_user = user
   end
   
   def signed_in?
@@ -12,15 +12,11 @@ module SessionsHelper
   
   def sign_out
     cookies.delete(:remember_token)
-    self.current_user = nil
+    @current_user = nil
   end
   
   def current_user?(user)
     user == current_user
-  end
-  
-  def current_user=(user)
-    @current_user = user
   end
   
   def current_user
@@ -38,7 +34,6 @@ module SessionsHelper
   
   def deny_access
     store_location
-    flash[:notice] = "Please sign in to access this page"
     redirect_to(signin_path)
   end
   
@@ -53,6 +48,12 @@ module SessionsHelper
   
   def clear_return_to
     session[:return_to] = nil
+  end
+
+  if RAILS_ENV=='test'
+    def current_user=(user)
+      @current_user = user
+    end
   end
   
 end

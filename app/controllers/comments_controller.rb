@@ -1,11 +1,15 @@
 class CommentsController < ApplicationController
+  before_filter :authenticate
+  
   def create
-    @task = Task.find(params[:task_id])
-    @comment = @task.comments.build(params[:comment])
+    # TODO: check nested route "task/:id/comments"
+    @comment = Comment.new(params[:comment])
     if @comment.save
-      redirect_to @task.user
+      UserMailer.deliver_comment_notification(@comment) if @comment.user 
+      redirect_to root_path
     else
       redirect_to root_path
     end
   end
+  
 end

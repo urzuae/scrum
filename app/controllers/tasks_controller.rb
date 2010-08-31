@@ -1,13 +1,15 @@
 class TasksController < ApplicationController
+  before_filter :authenticate
+  
+  # TODO: Move scrum from users to new_task, rename it to scrum on routes
   
   def create
-    @user = User.find(params[:user_id])
-    @task = @user.tasks.build(params[:task])
+    @task = Task.new(params[:task])
     if @task.save
-      @user.scrum_made
-      respond_to do |format|
-        format.js
-      end
+      current_user.scrum_made
+      redirect_to scrum_user_path(current_user)
+    else
+      redirect_to scrum_user_path(current_user)
     end
   end
   

@@ -7,8 +7,8 @@ class CreateUsers < ActiveRecord::Migration
       t.string :confirmation_token
       t.string :remember_token
       t.string :salt
-      t.string :password
       t.string :state
+      t.boolean :enrolled, :default => false
       t.boolean :admin, :default => false
       t.boolean :scrum, :default => false
 

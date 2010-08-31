@@ -20,4 +20,14 @@ describe Project do
     project_desc = Project.new(@valid_attributes.merge(:description => ""))
     project_desc.should_not be_valid
   end
+  
+  it "should have a tasks method" do
+    project = Project.create!(@valid_attributes)
+    project.should respond_to(:tasks)
+  end
+  
+  it "should have a users method" do
+    project = Project.create!(@valid_attributes)
+    project.should respond_to(:users)
+  end
 end
