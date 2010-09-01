@@ -21,4 +21,12 @@ class Project < ActiveRecord::Base
     self.tasks.find(:all, :conditions => ["created_at BETWEEN ? AND ?", (day - 7).beginning_of_day.utc, day.end_of_day.utc], :order => "created_at DESC", :limit => 5)
   end
   
+  def assign_user(user)
+      self.users << user
+  end
+  
+  def user_assigned?(user)
+    self.users.include?(user)
+  end
+  
 end
