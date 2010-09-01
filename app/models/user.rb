@@ -67,10 +67,6 @@ class User < ActiveRecord::Base
     self.update_attribute(:scrum, true)
   end
   
-  def self.reset_scrum
-    User.update_all(:scrum, false)
-  end
-  
   def self.generate_password
     User.make_password
   end
@@ -80,10 +76,9 @@ class User < ActiveRecord::Base
   end
   
   def self.scrum_reminder
-    users = User.all
-    users.each do |user|
-      if user.enrolled && !user.scrum
-        UserMailer.deliver_scrum_reminder(user.id)
+    User.all.each do |user|
+      if user.enrolled && !user.scrum?
+        UserMailer.deliver_scrum_reminder(user)
       end
     end
   end
@@ -96,6 +91,10 @@ class User < ActiveRecord::Base
     if self.user_projects.empty?
       self.update_attribute(:enrolled, false)
     end
+  end
+  
+  def self.reset_scrum
+    update_all("scrum = false")
   end
   
   private
