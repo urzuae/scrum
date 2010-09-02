@@ -220,10 +220,13 @@ body {
     }
     
   .errorLogin {
-    margin: 0 auto; background:url(images/bg_errBox.gif) no-repeat bottom;
+    margin: 0 auto; background:#FFCC99; width:500px;height:40px;
     }
+  .errorLogin p:first-child {
+    text-align:center;color:#a84114;font-size:1.1em;
+  }
   .errorLogin p {
-    text-align:center;color:#a84114;
+    text-align:center;
   }
     
   .successBox {
