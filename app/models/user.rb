@@ -64,7 +64,7 @@ class User < ActiveRecord::Base
   end
   
   def made_scrum
-    self.update_attribute(:scrum_made, true)
+    self.update_attribute(:scrum, true)
   end
   
   def self.generate_password
@@ -94,7 +94,7 @@ class User < ActiveRecord::Base
   end
   
   def self.reset_scrum
-    update_all("scrum_made = false")
+    update_all("scrum = false")
   end
   
   private
