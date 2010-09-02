@@ -27,7 +27,7 @@ class UserMailer < ActionMailer::Base
     recipients  "#{user.email}"
     from        "noreply@scrum.app"
     subject     "Your task has been commented"
-    body        :user => user, :comment => comment
+    body        :user => user, :comment => comment, :root => root_url
   end
   
 end
