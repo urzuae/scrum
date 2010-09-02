@@ -5,8 +5,7 @@ class Task < ActiveRecord::Base
   has_many :comments
 
   def self.find_previous
-    day = Date.today.yesterday
-    Task.find(:all, :conditions => ["project_id = 0 AND created_at BETWEEN ? and ?", (day - 7).beginning_of_day.utc, day.end_of_day.utc], :order => "created_at DESC", :limit => 5)
+    Task.find(:all, :conditions => ["project_id = 0"], :order => "created_at ASC", :limit => 5)
   end
   
   def self.find_by_day(day)

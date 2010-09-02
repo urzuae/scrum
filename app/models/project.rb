@@ -18,7 +18,7 @@ class Project < ActiveRecord::Base
   
   def find_previous_five
     day = Date.today.yesterday
-    self.tasks.find(:all, :conditions => ["created_at BETWEEN ? AND ?", (day - 7).beginning_of_day.utc, day.end_of_day.utc], :order => "created_at DESC", :limit => 5)
+    self.tasks.find(:all, :order => "created_at ASC", :limit => 5)
   end
   
   def assign_user(user)
