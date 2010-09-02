@@ -101,7 +101,7 @@ h1, h2 {
 
 
 
-input#datepicker {
+input.datepicker {
   width: 80px;
   background: none;
   border: none;
@@ -109,7 +109,7 @@ input#datepicker {
   font-size: 1.1em;
   margin-top: 15px;
 }
-input#datepicker:hover {
+input.datepicker:hover {
   color: #b37431;
 }
 

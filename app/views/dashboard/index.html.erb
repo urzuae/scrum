@@ -32,7 +32,7 @@
               <h3><%= project.name %> <small> Tasks for <%= @day.today? ? "Today" : @day %></small></h3>
               <p>
                 <%= link_to '<< |', root_path( :params => {:day => @day - 1}  )%>
-                <input type="text" id="datepicker" value="<%=@day%>"/>
+                <input type="text" class="datepicker" value="<%=@day%>"/>
                 <%= link_to '| >>', root_path( :params => {:day => @day + 1}) unless @day.today? %>
               </p>
             </div>
@@ -68,7 +68,7 @@
           <h3>General</h3>
           <p>
             <%= link_to '<< |', root_path( :params => {:day => @day - 1}  )%>
-            <input type="text" id="datepicker" value="<%=@day%>"/>
+            <input type="text" class="datepicker" value="<%=@day%>"/>
             <%= link_to '| >>', root_path( :params => {:day => @day + 1}) unless @day.today? %>
           </p>
         </div>

@@ -24,10 +24,15 @@
     </div>
     
     <div class="contentBox">
-        <div class="contentBoxTop">
-          <h3>Tasks</h3>
+      <div class="contentBoxTop">
+        <h3>Tasks</h3>
+      </div>
+      <% if @tasks.empty? %>
+        <div class="innerContent">
+          There are no tasks yet on this project.
         </div>
-        <div class="innerContent" id="box-1">
+      <% else %>
+        <div class="innerContent">
           <table class="sTable">
             <thead>
               <tr>
@@ -47,6 +52,7 @@
             </tbody>
           </table>
         </div>
+      <% end %>
     </div>
 
   </div>

@@ -49,6 +49,11 @@
             <li class><a href="#box-2">Add Member</a></li>
           </ul>
         </div>
+        <% if @project.users.empty? %>
+          <div class="innerContent" id="box-1" style="display:block;">
+              There are no users on this project yet.
+          </div>
+        <% else %>
         <div class="innerContent" id="box-1" style="display:block;">
           <table class="sTable">
             <thead>
@@ -71,7 +76,7 @@
             </tbody>
           </table>
         </div>
-        
+        <% end %>
         <div class="innerContent" id="box-2" style="display:none;">
           <% form_for @user_project do |f| %>
             <p>Member

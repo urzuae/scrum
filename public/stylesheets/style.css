@@ -220,7 +220,7 @@ body {
     }
     
   .errorLogin {
-    margin: 0 auto; background:#FFCC99; width:500px;height:40px;
+    margin: 0 auto; background:#FFCC99; width:500px;height:40px; margin-top:-120px;
     }
   .errorLogin p:first-child {
     text-align:center;color:#a84114;font-size:1.1em;

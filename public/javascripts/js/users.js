@@ -15,7 +15,7 @@ $(function() {
     Elastic.refresh();
   });
   
-  $('#datepicker').datepicker({
+  $(".datepicker").datepicker({
     maxDate: '0',
     dateFormat: 'yy-mm-dd',
     onSelect: function(dateText) {
