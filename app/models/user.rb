@@ -63,8 +63,8 @@ class User < ActiveRecord::Base
     self.update_attribute(:confirmation_token, nil)
   end
   
-  def scrum_made
-    self.update_attribute(:scrum, true)
+  def made_scrum
+    self.update_attribute(:scrum_made, true)
   end
   
   def self.generate_password
@@ -94,7 +94,7 @@ class User < ActiveRecord::Base
   end
   
   def self.reset_scrum
-    update_all("scrum = false")
+    update_all("scrum_made = false")
   end
   
   private
