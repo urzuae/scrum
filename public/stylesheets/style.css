@@ -369,6 +369,7 @@ body {
   #footerWrap {
     clear:both; 
     background:url(images/bg_footer.gif) repeat-x #1a1d20; 
+    overflow: hidden;
     }
   #footer {
     width:980px; 
