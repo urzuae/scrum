@@ -10,7 +10,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :state
       t.boolean :enrolled, :default => false
       t.boolean :admin, :default => false
-      t.boolean :scrum, :default => false
+      t.boolean :scrum_made, :default => false
 
       t.timestamps
     end
