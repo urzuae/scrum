@@ -1,6 +1,5 @@
 <head><%= javascript_include_tag 'js/users' %></head>
 
-<div id="container">
     
   <div id="header">
     <%= render 'shared/header' %>
@@ -86,6 +85,13 @@
             <% end %>
           </div><br/>
           <input type="button"class="task" name="0" value="Add Task"/>          
+          <div class="task_list" id="task_list_<%=project.id%>">
+            <% Task.find_by_day(Date.today).each do |task| %>
+              <% if task.user_id == @user.id %>
+                <h4><%= task.content %> by <%= task.user.name %></h4>
+              <% end %>
+            <% end %>
+          </div>
           <div id="form_0" class="task_forms">
             <% form_for @task do |f| %>
               <br/>Task:<br/>
@@ -101,5 +107,4 @@
     </div>
   <br class="clearFix">
   </div>
-</div>
 
