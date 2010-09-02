@@ -11,6 +11,7 @@ body {
   font-family: Verdana, Helvetica, Arial;
   font-size: 14px;
   background: #383838;
+  min-height: 100%;
 }
 
 #flash_notice, #flash_error {
