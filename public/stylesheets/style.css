@@ -12,8 +12,8 @@ body {
 
 #container {
   width:980px;
-  min-height: 100%;
-  margin:0 auto;}
+  margin:0 auto;
+}
   /************ HEADER ******************/
   #header {
     background:url(images/bg_header.jpg) no-repeat; 
@@ -218,6 +218,14 @@ body {
   .errorBox {
     background:url(images/bg_errBox.gif) no-repeat bottom;
     }
+    
+  .errorLogin {
+    margin: 0 auto; background:url(images/bg_errBox.gif) no-repeat bottom;
+    }
+  .errorLogin p {
+    text-align:center;color:#a84114;
+  }
+    
   .successBox {
     background:url(images/bg_successBox.gif) no-repeat bottom;
     }
@@ -361,7 +369,6 @@ body {
   #footerWrap {
     clear:both; 
     background:url(images/bg_footer.gif) repeat-x #1a1d20; 
-    margin-top:20px;
     }
   #footer {
     width:980px; 
@@ -409,3 +416,12 @@ body {
     font-size:0.8em; 
     margin:10px 0;
     }
+    
+  /*  Rounded corners */
+    
+  .round {
+    -moz-border-radius:    12px;
+    -webkit-border-radius: 12px;
+    border-radius:         12px;
+  }
+  

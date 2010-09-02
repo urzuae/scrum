@@ -25,12 +25,28 @@
         <p><%= @project.description %></p>
       </div>
       
-
+      <div class="contentBox">
+        <div class="contentBoxTop">
+          <h3>Settings</h3>
+        </div>
+        <div class="innerContent">
+            <% form_for @project, :url => admin_project_path do |f| %>
+              Name: <br/>
+              <%= f.text_field :name, :class => 'smallInput' %>
+              <br/><%= error_message_on @project, :name, :prepend_text => "*This field " %><br/>
+              Description: <br/>
+              <%= f.text_area :description, :class => 'areaInput' %>
+              <br/><%= error_message_on @project, :description, :prepend_text => "*This field " %><br/>
+              <%= f.submit " ", :class => 'submitInput' %>
+            <% end %>
+        </div>
+      </div>
+      
       <div class="contentBox" id="forms">
         <div class="contentBoxTop">
-          <h3>Staff</h3>
+          <h3>Users</h3>
           <ul class="switcherTabs">
-            <li class="selected"><a href="#box-1">Current Staff</a></li>
+            <li class="selected"><a href="#box-1">Current Users</a></li>
             <li class><a href="#box-2">Add Member</a></li>
           </ul>
         </div>

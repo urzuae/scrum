@@ -2,6 +2,7 @@
 <div id="container_signin">
   <% form_for :session, :url => sessions_path, :html => {:id => "signin_form"} do |f| %>
     <h2>Sign In</h2>
+    
     <div id="login_container">
       <p id="email">
         Email:<br/><br/>
@@ -17,3 +18,11 @@
     </div>
   <% end %>
 </div>
+<% if @display == true%>
+<div class="errorLogin round">
+  <div class="msgBoxContent round">
+    <p>Sign in Failure</p>
+    <p>Invalid Email/password combination</p>
+  </div>
+</div>
+<% end %>

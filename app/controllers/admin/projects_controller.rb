@@ -25,6 +25,17 @@ class Admin::ProjectsController < ApplicationController
     @users = User.all
   end
   
+  def update
+    @project = Project.find(params[:id])
+    if @project.update_attributes(params[:project])
+      redirect_to admin_project_path(@project)
+    else
+      @user_project = UserProject.new
+      @users = User.all
+      render 'edit'
+    end
+  end
+  
   def index
     @projects = Project.all
   end
