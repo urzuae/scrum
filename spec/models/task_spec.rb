@@ -21,4 +21,6 @@ describe Task do
     task = Task.new(@valid_attributes.merge(:user_id => "", :project_id => ""))
     task.should_not be_valid
   end
+  
+  # TODO: no estas probando nada importante! usa factories para probar los named scopes que tienes que hacer
 end

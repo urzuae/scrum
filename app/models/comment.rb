@@ -4,4 +4,5 @@ class Comment < ActiveRecord::Base
   belongs_to :task
   belongs_to :user
   
+  # TODO: la logica de mailer deberia estar un callback u observer de los comentarios on create!
 end

@@ -1,3 +1,5 @@
+# integra las vistas con integrate_views (investiga) asi podras hacer pruebitas de integracion y probar el output html
+
 require 'spec_helper'
 
 describe DashboardController do

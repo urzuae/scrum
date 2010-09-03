@@ -30,4 +30,10 @@ describe Project do
     project = Project.create!(@valid_attributes)
     project.should respond_to(:users)
   end
+  
+  # TODO: te faltan pruebas del resto de los metodos en el modelo
+  # se nota claramente que estas probando cosas triviales como relaciones
+  # shoulda tiene helpers para probar todas esastrivialidades
+  # no estas probando la logica que tu implementaste
+  # escribe primero la prueba luego la implementacion!!! enserio
 end

@@ -15,6 +15,7 @@ class Admin::UsersController < ApplicationController
     @user.password = User.generate_password
     if @user.save
       @user.register
+      # TODO: pasa esto a  los modelos
       UserMailer.deliver_enrollment_notification(@user)
       redirect_to admin_users_path
     else

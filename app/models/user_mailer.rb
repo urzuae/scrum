@@ -1,3 +1,4 @@
+# no tienes pruebas de ninguno de estos mailers
 class UserMailer < ActionMailer::Base
   
   def enrollment_notification(user)

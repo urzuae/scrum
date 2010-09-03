@@ -25,4 +25,6 @@ describe Comment do
     comment = Comment.new(@valid_attributes.merge(:user_id => ""))
     comment.should_not be_valid
   end
+  
+  # TODO: aqui van las pruebas del mailer de comentarios
 end

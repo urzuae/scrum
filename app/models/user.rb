@@ -1,3 +1,4 @@
+# faltan muuuchas pruebas y docu!
 class User < ActiveRecord::Base
   include AASM
   
@@ -63,6 +64,7 @@ class User < ActiveRecord::Base
     self.update_attribute(:confirmation_token, nil)
   end
   
+  # TODO: explicame esto!!! no entiendo que onda
   def made_scrum
     self.update_attribute(:scrum_made, true)
   end

@@ -7,6 +7,7 @@ class UsersController < ApplicationController
     @comment = Comment.new
   end
   
+  # TODO: esta ruta no me custa no me tiene sentido se me hace que puede tener su propio controlador y muchas pruebas
   def scrum
     @task = Task.new
     @comment = Comment.new

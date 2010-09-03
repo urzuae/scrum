@@ -38,4 +38,6 @@ describe User do
     end
   end
   
+  # TODO: a qui te faltan chingos de pruebas para toooooodos los metodos de tu clase tambien prueba los casos limite!!!
+  # prueba los estads tabmien! estas pruebas de nuevo son demasiado triviales y aun todos los casos triviales no los estas porbando acuerdate de shoulda
 end
