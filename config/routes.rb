@@ -6,7 +6,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.root :controller => 'projects'
   end
   
-  map.resources :users, :only => [:show, :edit, :update], :member => [:scrum]
+  map.resources :users, :only => [:show, :edit, :update], :member => [:scrum_in]
   map.resources :sessions, :only => [:new, :create, :destroy]
   
   map.resources :tasks, :only => [:create]

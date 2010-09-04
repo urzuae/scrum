@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     @comment = Comment.new
   end
   
-  def scrum
+  def scrum_in
     @task = Task.new
     @comment = Comment.new
   end

@@ -11,7 +11,7 @@
           <%= link_to 'Dashboard', root_path %>
           <ul>
             <li><%= link_to 'Dashboard', root_path %></li>
-            <li class="selected"><%= link_to 'Scrum In', scrum_user_path(current_user) %></li>
+            <li class="selected"><%= link_to 'Scrum In', scrum_in_user_path(current_user) %></li>
           </ul>
         </li>
         <% if current_user.admin %>

@@ -200,6 +200,8 @@ body {
   
   div.innerContent {padding:12px;}
   /*** FORM STYLERS **/
+  div.innerContent a {text-decoration:none;color:#867946;}
+  div.innerContent a:hover {text-decoration:underline;color: #b37431;}
   div.innerContent p.smallInput { background:none no-repeat; width:168px;}
   div.innerContent p.smallInput, label.mediumInput, label.largeInput {padding:4px 6px 0px 6px; height:23px; display:block; margin:5px 0 0 0;}
   div.innerContent input.smallInput {background:url(images/bg_s_input.gif) no-repeat; width:168px; height:23px; padding:4px 6px 0px 6px; border:none; font-size:0.9em; color:#666;}
