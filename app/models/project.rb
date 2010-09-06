@@ -8,21 +8,12 @@ class Project < ActiveRecord::Base
   has_many :user_projects
   has_many :tasks
   
-  def find_today_tasks
-    self.find_tasks_by_day(Date.today)
-  end
-  
-  def find_tasks_by_day(day)
-    self.tasks.find(:all, :conditions => ["created_at BETWEEN ? AND ?", day.beginning_of_day.utc, day.end_of_day.utc])
-  end
-  
-  def find_previous_five
-    day = Date.today.yesterday
-    self.tasks.find(:all, :order => "created_at DESC", :limit => 5)
-  end
-  
+  #Assign a user to the project
   def assign_user(user)
-    self.users << user
+    unless user_assigned?(user)
+      self.users << user
+      user.enroll
+    end
   end
   
   def user_assigned?(user)

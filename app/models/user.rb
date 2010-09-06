@@ -18,63 +18,53 @@ class User < ActiveRecord::Base
   end
   
   attr_accessor :password
+  attr_accessible :name, :email, :password, :password_confirmation
   
-  validates_confirmation_of :password
   validates_presence_of :password
+  validates_confirmation_of :password
   validates_presence_of :email
   validates_uniqueness_of :email
-  validates_format_of :email, :with => /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  validates_format_of :email, :with => /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/
   validates_presence_of :name
   
+  before_validation_on_create :generate_password
   before_save :encrypt_password
+  after_create :register
   
   has_many :projects, :through => :user_projects
   has_many :user_projects
   has_many :tasks
   has_many :comments
   
-  def has_password?(submitted_password)
-    encrypted_password == encrypt(submitted_password)
-  end
-  
   def self.authenticate(email, submitted_password)
     user = find_by_email(email)
     return nil if user.nil?
-    return user if user.has_password?(submitted_password) && (user.active?)
-    nil
+    return user if user.right_password?(submitted_password) && (user.active?)
   end
+  
+  def right_password?(submitted_password)
+    encrypted_password == encrypt(submitted_password)
+  end
+  
   
   def remember_me!
-    self.remember_token = encrypt("#{salt}--#{id}--#{Time.now.utc}")
-    save_without_validation
-  end
-  
-  def register
-    self.confirmation_token = encrypt("#{id}--#{Time.now.utc}")
-    self.processing!
+    self.update_attribute(:remember_token, encrypt("#{salt}--#{id}--#{Time.now.utc}"))
   end
   
   def active?
     confirmation_token.nil?
   end
   
-  def confirmation
-    self.confirm!
-    self.update_attribute(:confirmation_token, nil)
-  end
-  
-  def made_scrum
-    self.update_attribute(:scrum_made, true)
-  end
-  
-  def self.generate_password
-    User.make_password
+  #Generate random password
+  def generate_password
+    self.password_confirmation = self.password = User.make_password
   end
 
   def self.make_password
     rand(100).to_s + ('a'..'z').to_a.shuffle[0..2].join + rand(100).to_s + ('a'..'z').to_a.shuffle[0..2].join
   end
   
+  #Task done today
   def self.scrum_reminder
     User.all.each do |user|
       if user.enrolled && !user.scrum?
@@ -83,6 +73,15 @@ class User < ActiveRecord::Base
     end
   end
   
+  def submit_task
+    self.update_attribute(:task_submitted, true)
+  end
+  
+  def self.reset_scrum
+    update_all("task_submited = false")
+  end
+  
+  #Enrollment in a project
   def enroll
     self.update_attribute(:enrolled, true)
   end
@@ -93,14 +92,23 @@ class User < ActiveRecord::Base
     end
   end
   
-  def self.reset_scrum
-    update_all("scrum_made = false")
+  #Change of states
+  def register
+    self.confirmation_token = encrypt("#{id}--#{Time.now.utc}")
+    self.processing!
+    UserMailer.deliver_enrollment_notification(self)
+  end
+  
+  def confirmation
+    self.confirm!
+    self.update_attribute(:confirmation_token, nil)
   end
   
   private
   
+  #Password encryption
   def encrypt_password
-    unless password.nil? || password.blank?
+    unless (password.nil? || password.blank?)
       self.salt = make_salt(password)
       self.encrypted_password = encrypt(password)
     end

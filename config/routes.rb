@@ -3,20 +3,20 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace :admin do |admin|
     admin.resources :users, :only => [:index, :new, :create, :destroy]
     admin.resources :projects
+    admin.resources :user_projects, :only => [:create, :destroy]
     admin.root :controller => 'projects'
   end
   
-  map.resources :users, :only => [:show, :edit, :update], :member => [:scrum_in]
+  map.resources :users, :only => [:show, :edit, :update]
   map.resources :sessions, :only => [:new, :create, :destroy]
   
   map.resources :tasks, :only => [:create]
   map.resources :comments, :only => [:create]
-  map.resources :user_projects, :only => [:create, :destroy]
   
-  #TODO: map.scrum_in =>  new_task
   map.register '/register/:confirmation_token', :controller => 'sessions', :action => 'register'
   map.signin '/signin', :controller => 'sessions', :action => 'new'
   map.signout '/signout', :controller => 'sessions', :action => 'destroy'
+  map.wip '/wip', :controller => 'wip', :action => 'wip'
 
   map.root :controller => 'dashboard'
   # The priority is based upon order of creation: first created -> highest priority.

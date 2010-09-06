@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(:version => 20100819215519) do
     t.string   "state"
     t.boolean  "enrolled",           :default => false
     t.boolean  "admin",              :default => false
-    t.boolean  "scrum_made",         :default => false
+    t.boolean  "task_submitted",     :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

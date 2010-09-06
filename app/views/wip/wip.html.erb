@@ -11,7 +11,7 @@
           <%= link_to 'Dashboard', root_path %>
           <ul>
             <li><%= link_to 'Dashboard', root_path %></li>
-            <li class="selected"><%= link_to 'Scrum In', scrum_in_user_path(current_user) %></li>
+            <li class="selected"><%= link_to 'WIP In', wip_path %></li>
           </ul>
         </li>
         <% if current_user.admin %>
@@ -25,7 +25,7 @@
     <div id="leftBox">
       
       <div id="pageIntro">
-        <h2>Scrum</h2>
+        <h2>W I P</h2>
         <p>Set your today's tasks.</p>
       </div>
       
@@ -46,14 +46,14 @@
             <div class="innerContent" style="overflow:hidden;">
               <div class="previous">
                 <h5>Previous tasks</h5>
-                <% project.find_previous_five.each do |task| %>
+                <% project.tasks.previous_five.each do |task| %>
                   <p><%= task.content %> on <%= task.created_at.to_date%></p>
                 <% end %>
               </div><br/>
               <input type="button"class="task" name="<%=project.id%>" value="Add Task"/>
               <br/>
               <div class="task_list" id="task_list_<%=project.id%>">
-                <% project.find_today_tasks.each do |task| %>
+                <% project.tasks.by_day(@today).each do |task| %>
                   <% if task.user_id == @user.id %>
                     <h4><%= task.content %> by <%= task.user.name %></h4>
                   <% end %>
@@ -80,13 +80,13 @@
         <div class="innerContent">
           <div class="previous">
             <h5>Previous tasks</h5>
-            <% Task.find_previous.each do |task| %>
+            <% Task.previous.each do |task| %>
               <p><%= task.content %> on <%= task.created_at.to_date%></p>
             <% end %>
           </div><br/>
           <input type="button"class="task" name="0" value="Add Task"/>          
           <div class="task_list" id="task_list_0">
-            <% Task.find_by_day(Date.today).each do |task| %>
+            <% Task.find_by_day(@today).each do |task| %>
               <% if task.user_id == @user.id %>
                 <h4><%= task.content %> by <%= task.user.name %></h4>
               <% end %>

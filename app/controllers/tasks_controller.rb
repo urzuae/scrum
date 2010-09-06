@@ -6,10 +6,9 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(params[:task])
     if @task.save
-      current_user.made_scrum
-      redirect_to scrum_user_path(current_user)
+      redirect_to wip_path
     else
-      redirect_to scrum_user_path(current_user)
+      redirect_to wip_path
     end
   end
   

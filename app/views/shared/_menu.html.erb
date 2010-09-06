@@ -5,7 +5,7 @@
         <%= link_to 'Dashboard', root_path %>
         <ul>
           <%= selected_li("Dashboard", root_path) %>
-          <%= selected_li("Scrum in", scrum_in_user_path(@user))%>
+          <%= selected_li("WIP In", wip_path)%>
         </ul>
       </li>
       <% if current_user.admin %>

@@ -1,24 +1,24 @@
 require 'spec_helper'
 
 describe Task do
-  before(:each) do
-    @valid_attributes = {
-      :content => "value for content",
-      :user_id => 1,
-      :project_id => 2
-    }
-  end
-
-  it "should create a new instance given valid attributes" do
-    Task.create!(@valid_attributes)
+  
+  describe "validations" do
+    it { should validate_presence_of(:content) }
+    it { should validate_presence_of(:user_id) }
+    it { should validate_presence_of(:project_id) }
   end
   
-  it "should validate presence of content" do
-    task = Task.new(@valid_attributes.merge(:content => ""))
-    task.should_not be_valid
+  describe "relationships" do
+    it { should belong_to(:user) }
+    it { should belong_to(:project) }
+    it { should have_many(:comments) }
   end
-  it "should validate presence of user_id and project_id" do
-    task = Task.new(@valid_attributes.merge(:user_id => "", :project_id => ""))
-    task.should_not be_valid
+  
+  describe "named scopes" do
+    it { Task.should respond_to(:previous_five) }
+    it { Task.should respond_to(:by_day) }
+    it { Task.should respond_to(:previous) }
+    it { Task.should respond_to(:find_by_day) }
   end
+  
 end

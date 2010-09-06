@@ -1,33 +1,41 @@
 require 'spec_helper'
 
 describe Project do
-  before(:each) do
-    @valid_attributes = {
-      :name => "Freshout",
-      :description => "Pioneering disruptive ideas on the web"
-    }
-  end
-
-  it "should create a new instance given valid attributes" do
-    Project.create!(@valid_attributes)
-  end
-  it "should require a name" do
-    project_name = Project.new(@valid_attributes.merge(:name => ""))
-    project_name.should_not be_valid
+  
+  describe "validations" do
+    it { should validate_presence_of(:name) }
+    it { should validate_presence_of(:description) }
   end
   
-  it "should require a description" do
-    project_desc = Project.new(@valid_attributes.merge(:description => ""))
-    project_desc.should_not be_valid
+  describe "attr_accesible" do
+    it { should allow_mass_assignment_of(:name) }
+    it { should allow_mass_assignment_of(:description) }
   end
   
-  it "should have a tasks method" do
-    project = Project.create!(@valid_attributes)
-    project.should respond_to(:tasks)
+  describe "relationships" do
+    it { should have_many(:tasks) }
+    it { should have_many(:user_projects) }
+    it { should have_many(:users).through(:user_projects) }
   end
   
-  it "should have a users method" do
-    project = Project.create!(@valid_attributes)
-    project.should respond_to(:users)
+  describe "methods" do
+    it { should respond_to(:assign_user) }
+    it { should respond_to(:user_assigned?) }
   end
+  
+  describe "user assignment" do
+    before(:each) do
+      @user = Factory(:user)
+      @project = Factory(:project)
+    end
+    it "should assign a user" do
+      @project.assign_user(@user)
+      @project.user_assigned?(@user).should be_true
+    end
+    it "should not assign a user twice" do
+      @project.assign_user(@user)
+      @project.assign_user(@user).should be_nil
+    end
+  end
+  
 end

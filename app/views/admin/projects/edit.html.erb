@@ -69,7 +69,7 @@
                   <td class="firstCol"><%= up.user.name %></td>
                   <td class="secondCol"><%= up.user.email %></td>
                   <td class="editItem">
-                    <li class="iconDel"><%= link_to "Remove", up, :method => :delete, :confirm => 'Are you sure?' %></li>
+                    <li class="iconDel"><%= link_to "Remove", admin_user_project_path(up), :method => :delete, :confirm => 'Are you sure?' %></li>
                   </td>
                 <tr>
               <% end %>
@@ -78,7 +78,7 @@
         </div>
         <% end %>
         <div class="innerContent" id="box-2" style="display:none;">
-          <% form_for @user_project do |f| %>
+          <% form_for @user_project, :url => admin_user_projects_path do |f| %>
             <p>Member
               <%= f.collection_select(:user_id, @users, :id, :name, :prompt => true) %>
               <%= f.hidden_field :project_id, :value => @project.id %>

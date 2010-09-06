@@ -12,10 +12,7 @@ class Admin::UsersController < ApplicationController
   
   def create
     @user = User.new(params[:user])
-    @user.password = User.generate_password
     if @user.save
-      @user.register
-      UserMailer.deliver_enrollment_notification(@user)
       redirect_to admin_users_path
     else
       render 'new'

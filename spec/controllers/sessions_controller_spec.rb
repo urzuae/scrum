@@ -63,15 +63,8 @@ describe SessionsController do
   
   describe "GET 'register'" do
     before(:each) do
-      @attributes = {
-        :name => "New User",
-        :email => "user@local.com",
-        :password => "asdfgh",
-        :password_confirmation => "asdfgh"
-      }
-      @user = Factory(:user, @attributes)
+      @user = Factory(:user)
       User.stub!(:new).and_return(@user)
-      @user.register
     end
     
     describe "activation of user" do

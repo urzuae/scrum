@@ -38,7 +38,7 @@
             </div>
             <div class="innerContent" style="overflow:hidden;">
               <div class="task_list" id="task_list_<%=project.id%>">
-                <% project.find_tasks_by_day(@day).each do |task| %>
+                <% project.tasks.by_day(@day).each do |task| %>
                   <h4><%= task.content %></h4> by <%= task.user.name %><br/><br/>
                   <div class="comments">
                     <% task.comments.each do |cmt| %>
