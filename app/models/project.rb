@@ -8,7 +8,6 @@ class Project < ActiveRecord::Base
   has_many :user_projects
   has_many :tasks
   
-  #Assign a user to the project
   def assign_user(user)
     unless user_assigned?(user)
       self.users << user

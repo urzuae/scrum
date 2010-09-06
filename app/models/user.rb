@@ -1,3 +1,4 @@
+# faltan muuuchas pruebas y docu!
 class User < ActiveRecord::Base
   include AASM
   
@@ -55,11 +56,15 @@ class User < ActiveRecord::Base
     confirmation_token.nil?
   end
   
-  #Generate random password
-  def generate_password
-    self.password_confirmation = self.password = User.make_password
+  def confirmation
+    self.confirm!
+    self.update_attribute(:confirmation_token, nil)
   end
-
+  
+  def self.generate_password
+    User.make_password
+  end
+  
   def self.make_password
     rand(100).to_s + ('a'..'z').to_a.shuffle[0..2].join + rand(100).to_s + ('a'..'z').to_a.shuffle[0..2].join
   end

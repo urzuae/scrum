@@ -16,3 +16,11 @@ Factory.sequence :email do |n|
   "person-#{n}@example.com"
 end
 
+Factory.sequence :content do |n|
+  "Task #-#{n} in this project"
+end
+
+Factory.sequence :name do |n|
+  "Project #-#{n}"
+end
+

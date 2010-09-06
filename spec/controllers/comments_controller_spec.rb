@@ -1,3 +1,4 @@
+# TODO: pruebas!!!
 require 'spec_helper'
 
 describe CommentsController do

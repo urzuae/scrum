@@ -15,10 +15,9 @@ describe Task do
   end
   
   describe "named scopes" do
-    it { Task.should respond_to(:previous_five) }
-    it { Task.should respond_to(:by_day) }
-    it { Task.should respond_to(:previous) }
-    it { Task.should respond_to(:find_by_day) }
+    before(:each) do
+    end
   end
   
+  # TODO: no estas probando nada importante! usa factories para probar los named scopes que tienes que hacer
 end
