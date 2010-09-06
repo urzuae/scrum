@@ -61,8 +61,8 @@ class User < ActiveRecord::Base
     self.update_attribute(:confirmation_token, nil)
   end
   
-  def self.generate_password
-    User.make_password
+  def generate_password
+    self.password = self.password_confirmation = User.make_password
   end
   
   def self.make_password
