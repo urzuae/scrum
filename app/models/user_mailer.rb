@@ -22,8 +22,9 @@ class UserMailer < ActionMailer::Base
     body          :projects => projects
   end
   
-  def comment_notification(comment, user)
+  def comment_notification(comment, user, commenters)
     recipients  "#{user.email}"
+    cc          "#{commenters}"
     from        "noreply@scrum.app"
     subject     "Your task has been commented"
     body        :user => user, :comment => comment, :root => root_url

@@ -9,7 +9,18 @@ class Comment < ActiveRecord::Base
   
   def notify_users
     user = self.task.user
-    UserMailer.deliver_comment_notification(self, user)
+    commenters = self.get_commenters
+    UserMailer.deliver_comment_notification(self, user, commenters)
+  end
+  
+  def get_commenters
+    @commenters = []
+    self.task.comments.each do |cmt|
+      if !@commenters.include?(cmt.user.email) && cmt.user.email != self.user.email
+        @commenters << cmt.user.email
+      end
+    end
+    return @commenters = @commenters.join(", ")
   end
   
 end
