@@ -7,15 +7,10 @@ class User < ActiveRecord::Base
   aasm_initial_state :created
   
   aasm_state :created
-  aasm_state :registered
   aasm_state :activated
   
-  aasm_event :processing do
-    transitions :to => :registered, :from => [:created]
-  end
-  
   aasm_event :confirm do
-    transitions :to => :activated, :from => [:registered]
+    transitions :to => :activated, :from => [:created]
   end
   
   attr_accessor :password
@@ -100,7 +95,6 @@ class User < ActiveRecord::Base
   #Change of states
   def register
     self.confirmation_token = encrypt("#{id}--#{Time.now.utc}")
-    self.processing!
     UserMailer.deliver_enrollment_notification(self)
   end
   
